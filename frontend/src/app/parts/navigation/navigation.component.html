@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #7bcbd6;">
+    <a class="navbar-brand" [routerLink]="root">
+        <img src="/assets/brand.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+        Kamal Store
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+        <div class="navbar-nav" *ngIf="!currentUser || currentUser.role == Role.Customer">
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary  dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="opacity: 0.8;">
+                  Categories
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" routerLink="/category/0">T-Shirts</a>
+                  <a class="dropdown-item" routerLink="/category/1">Sweaters</a>
+                  <a class="dropdown-item" routerLink="/category/2">Jeans</a>
+                  <a class="dropdown-item" routerLink="/category/3">Jackets</a>
+                  <!-- <div class="dropdown-divider"></div> -->
+                  <!-- <a class="dropdown-item" href="#">Separated link</a> -->
+                </div>
+              </div>
+        </div>
+
+        <div class="navbar-nav ml-auto">
+            <a *ngIf="!currentUser || currentUser.role == Role.Customer"
+                    class="nav-item nav-link " routerLink="/cart" style="color: white;">
+                <i class="fas fa-shopping-cart"></i>
+                Cart
+            </a>
+
+            <ng-container *ngIf="currentUser; else noUser">
+                <a class="nav-item nav-link " routerLink="/order" style="color: white;">
+                    <i class="fas fa-list-ul"></i>
+                    Orders
+                </a>
+                <a class="nav-item nav-link " routerLink="/profile" style="color: white;">
+                    {{name}}
+                </a>
+                <a class="nav-item nav-link " (click)="logout()" routerLink="/login" [queryParams]="{logout: true}"  style="color: white;">
+                    Sign Out
+                </a>
+            </ng-container>
+            <ng-template #noUser>
+                <a class="nav-item nav-link " routerLink="/login"  style="color: white;">
+                    Sign In
+                </a>
+                <a class="nav-item nav-link " routerLink="/register" style="color: white;">
+                    Sign Up
+                </a>
+            </ng-template>
+        </div>
+    </div>
+</nav>
